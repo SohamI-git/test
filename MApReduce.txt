@@ -1,0 +1,45 @@
+from collections import defaultdict
+
+# Sample input data (like lines from a text file)
+input_data = [
+    "Hello world",
+    "Hello again world",
+    "MapReduce is fun",
+    "MapReduce counts words"
+]
+
+# --- Mapper Function ---
+def mapper(line):
+    words = line.strip().split()
+    for word in words:
+        yield (word.lower(), 1)
+
+# --- Shuffle and Sort ---
+def shuffle_and_sort(mapped_data):
+    shuffled = defaultdict(list)
+    for key, value in mapped_data:
+        shuffled[key].append(value)
+    return shuffled
+
+# --- Reducer Function ---
+def reducer(shuffled_data):
+    reduced = {}
+    for key, values in shuffled_data.items():
+        reduced[key] = sum(values)
+    return reduced
+
+# --- Running the MapReduce Steps ---
+# 1. Map phase
+mapped = []
+for line in input_data:
+    mapped.extend(list(mapper(line)))
+
+# 2. Shuffle and Sort phase
+shuffled = shuffle_and_sort(mapped)
+
+# 3. Reduce phase
+reduced = reducer(shuffled)
+
+# --- Output ---
+for word, count in reduced.items():
+    print(f"{word}: {count}")

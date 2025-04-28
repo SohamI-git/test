@@ -1,0 +1,23 @@
+sudo apt update && sudo apt upgrade -y
+
+sudo grep -c ""
+
+sudo grep -c "svm\|vmx" /proc/cpuinfo
+
+kvm -ok
+
+sudo apt install cpu-checker
+
+kvm-ok
+
+sudo apt install qemu-kvm virt-manager libvirt-daemon-system libvirt-clients bridge-utils -y
+
+sudo systemcl enable libvirtd
+
+sudo systemcl start libvirtd
+
+sudo usermod -aG kvm 
+
+sudo usermod -aG kvm soham-2
+
+sudo systemctl status libvirt
